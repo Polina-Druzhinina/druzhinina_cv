@@ -8,7 +8,7 @@ SEARCH_DISTANCE = 170
 START_JUMP_DISTANCE = 160
 MAX_JUMP_DISTANCE = 270
 GROW_AFTER_JUMPS = 20
-MAX_SIZE_AT_JUMPS = 65
+MAX_SIZE_AT_JUMPS = 68
 DUCK_AFTER_JUMPS = 45
 
 pyautogui.PAUSE = 0
@@ -42,10 +42,8 @@ with mss() as sct:
         screen = cv2.cvtColor(np.array(sct.grab(monitor)), cv2.COLOR_BGRA2BGR)
         frame = screen[y:y + h, x:x + w]
         gray = cv2.cvtColor(frame, cv2.COLOR_BGR2GRAY)
-
         result = cv2.matchTemplate(gray, template, cv2.TM_CCOEFF_NORMED)
         _, max_val, _, max_loc = cv2.minMaxLoc(result)
-
         if max_val > 0.62:
             dino_x, dino_y = max_loc
             dino_on_ground = dino_y >= ground_y - 18
